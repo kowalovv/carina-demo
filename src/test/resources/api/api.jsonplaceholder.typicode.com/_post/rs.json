@@ -1,0 +1,26 @@
+{
+  "0": {
+    "id": 1,
+    "name": "Patryk",
+    "username": "Kowal",
+    "email": "kowal@gmail.com",
+    "address": {
+      "street": "Robotnicza",
+      "suite": "19",
+      "city": "Wroclaw",
+      "zipcode": "52-002",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "333",
+    "website": "google.com",
+    "company": {
+      "name": "Solvd",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+  "id": 11
+}
