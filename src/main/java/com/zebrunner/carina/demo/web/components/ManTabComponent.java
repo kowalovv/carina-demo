@@ -10,35 +10,34 @@ import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;
 
-public class ManTabComponents extends AbstractUIObject {
+public class ManTabComponent extends AbstractUIObject {
 
-    @FindBy(xpath = ".//a[@class=\"action showcart\"]")
-    ExtendedWebElement showCart;
+    @FindBy(xpath = ".//a[@class='action showcart']")
+    private ExtendedWebElement showCart;
 
-    @FindBy(xpath = ".//div[@id=\"option-label-size-143-item-169\"]")
-    ExtendedWebElement randomSize;
+    @FindBy(xpath = ".//div[@id='option-label-size-143-item-169']")
+    private ExtendedWebElement randomSize;
 
-    @FindBy(xpath = ".//div[@id=\"option-label-color-93-item-52\" and @index=\"0\"]")
-    ExtendedWebElement randomColor;
+    @FindBy(xpath = ".//div[@id='option-label-color-93-item-52' and @index='0']")
+    private ExtendedWebElement randomColor;
 
-    @FindBy(xpath = ".//a[@class=\"action showcart\"]//span[@class=\"counter-number\" and text()='1']")
-    ExtendedWebElement showCartWithValue1;
+    @FindBy(xpath = ".//a[@class='action showcart']//span[@class='counter-number' and text()='1']")
+    private ExtendedWebElement showCartWithValue1;
 
-    @FindBy(xpath = ".//button[@type=\"submit\" and @title=\"Add to Cart\"]")
-    ExtendedWebElement addToCartButton;
+    @FindBy(xpath = ".//button[@type='submit' and @title='Add to Cart']")
+    private ExtendedWebElement addToCartButton;
 
-    @FindBy(xpath = ".//a[@title=\"Remove item\"]")
-    ExtendedWebElement removeFromCartButton;
+    @FindBy(xpath = ".//a[@title='Remove item']")
+    private ExtendedWebElement removeFromCartButton;
+
+    public ManTabComponent(WebDriver driver, SearchContext searchContext) {
+        super(driver, searchContext);
+    }
 
 
     public ExtendedWebElement getShowCartWithValue1() {
         return showCartWithValue1;
     }
-
-    public ManTabComponents(WebDriver driver, SearchContext searchContext) {
-        super(driver, searchContext);
-    }
-
 
     public ExtendedWebElement getShowCart() {
         return showCart;

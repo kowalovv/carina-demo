@@ -8,16 +8,16 @@ import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;
 
-public class SearchLineComponents extends AbstractUIObject {
+public class SearchLineComponent extends AbstractUIObject {
 
-    @FindBy(xpath = ".//*[@id = \"search\"]")
+    @FindBy(xpath = ".//*[@id = 'search']")
     private ExtendedWebElement searchBar;
 
-    @FindBy(xpath = ".//button[@title = \"Search\"]")
+    @FindBy(xpath = ".//button[@title = 'Search']")
 
     private ExtendedWebElement searchButton;
 
-    public SearchLineComponents(WebDriver driver, SearchContext searchContext) {
+    public SearchLineComponent(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 

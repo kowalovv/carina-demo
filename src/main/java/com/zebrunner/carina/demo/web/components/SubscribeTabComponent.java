@@ -6,16 +6,20 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class SubscribeTabComponents extends AbstractUIObject {
+public class SubscribeTabComponent extends AbstractUIObject {
 
-    @FindBy(xpath = ".//input[@id= \"mc-embedded-subscribe\"]")
-    ExtendedWebElement subscribeButton;
+    @FindBy(xpath = ".//input[@id= 'mc-embedded-subscribe']")
+    private ExtendedWebElement subscribeButton;
 
-    @FindBy(xpath = ".//input[@type= \"email\"]")
-    ExtendedWebElement mailInput;
+    @FindBy(xpath = ".//input[@type= 'email']")
+    private ExtendedWebElement mailInput;
 
-    @FindBy(xpath = ".//*[@id=\"mce-success-response\"]")
-    ExtendedWebElement successInfo;
+    @FindBy(xpath = ".//*[@id='mce-success-response']")
+    private ExtendedWebElement successInfo;
+
+    public SubscribeTabComponent(WebDriver driver, SearchContext searchContext) {
+        super(driver, searchContext);
+    }
 
     public ExtendedWebElement getSuccessInfo() {
         return successInfo;
@@ -23,10 +27,6 @@ public class SubscribeTabComponents extends AbstractUIObject {
 
     public ExtendedWebElement getMailInput() {
         return mailInput;
-    }
-
-    public SubscribeTabComponents(WebDriver driver, SearchContext searchContext) {
-        super(driver, searchContext);
     }
 
     public ExtendedWebElement getSubscribeButton() {

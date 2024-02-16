@@ -4,7 +4,7 @@ import com.zebrunner.carina.core.AbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import com.zebrunner.carina.demo.web.HomePage;
 import com.zebrunner.carina.demo.web.ManPage;
-import com.zebrunner.carina.demo.web.components.SearchLineComponents;
+import com.zebrunner.carina.demo.web.components.SearchLineComponent;
 import com.zebrunner.carina.demo.web.SubscribePage;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -26,19 +26,16 @@ public class MagentoTests extends AbstractTest {
     public void searchLineBasicTest() {
         LOGGER.info("Test 1");
         WebDriver driver = getDriver();
-        SoftAssert sa = new SoftAssert();
         HomePage homePage = new HomePage(driver);
-
         homePage.open();
-        SearchLineComponents searchLineComponent = homePage.getHeader().getSearchLineComponent();
-        sa.assertTrue(searchLineComponent.getSearchBar().isElementPresent(1), "Search bar is not present");
+        SearchLineComponent searchLineComponent = homePage.getHeader().getSearchLineComponent();
+        Assert.assertTrue(searchLineComponent.getSearchBar().isElementPresent(1), "Search bar is not present");
         String testWordWithoutSpace = "HelloWorld";
         String format = String.format("https://magento.softwaretestingboard.com/catalogsearch/result/?q=%s", testWordWithoutSpace);
         searchLineComponent.typeSearchInputValue(testWordWithoutSpace);
-        sa.assertTrue(searchLineComponent.getSearchButton().isElementPresent(1), "Search button is not present");
+        Assert.assertTrue(searchLineComponent.getSearchButton().isElementPresent(1), "Search button is not present");
         searchLineComponent.clickSearchButton();
-        Assert.assertEquals(driver.getCurrentUrl(), format);
-        sa.assertAll();
+        Assert.assertEquals(driver.getCurrentUrl(), format, "Page with search results doesn't visible");
     }
 
     @Test(description = "DEMO-2")
@@ -47,11 +44,10 @@ public class MagentoTests extends AbstractTest {
         LOGGER.info("Test 2");
         WebDriver driver = getDriver();
         HomePage homePage = new HomePage(driver);
-
         homePage.open();
         String homeUrl = driver.getCurrentUrl();
         homePage.getHeader().getLogo().click();
-        Assert.assertEquals(driver.getCurrentUrl(), homeUrl);
+        Assert.assertEquals(driver.getCurrentUrl(), homeUrl, "Page wasn't redirected to the home page");
     }
 
     @Test(description = "DEMO-3")
@@ -60,19 +56,12 @@ public class MagentoTests extends AbstractTest {
         LOGGER.info("Test 3");
         WebDriver driver = getDriver();
         HomePage homePage = new HomePage(driver);
-
         homePage.open();
         homePage.getFooterComponents().getNotes().click();
         String homeWindowHandle = driver.getWindowHandle();
-        Set<String> windowHandles = driver.getWindowHandles();
-        for (String handle : windowHandles) {
-            if (!handle.equals(homeWindowHandle)) {
-                driver.switchTo().window(handle);
-                break;
-            }
-        }
+        homePage.switchTab();
         String notesWindowHandle = driver.getWindowHandle();
-        Assert.assertNotEquals(homeWindowHandle, notesWindowHandle);
+        Assert.assertNotEquals(homeWindowHandle, notesWindowHandle, "New tab doesn't appear");
     }
 
     @Test(description = "DEMO-4")
@@ -81,10 +70,9 @@ public class MagentoTests extends AbstractTest {
         LOGGER.info("Test 4");
         WebDriver driver = getDriver();
         HomePage homePage = new HomePage(driver);
-
         homePage.open();
         homePage.getFooterComponents().getSubscribeLinkButton().click();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://softwaretestingboard.com/subscribe/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://softwaretestingboard.com/subscribe/", "Subscribe page doesn't open");
     }
 
     @Test(description = "DEMO-5")
@@ -94,9 +82,8 @@ public class MagentoTests extends AbstractTest {
         WebDriver driver = getDriver();
         SubscribePage subscribePage = new SubscribePage(driver);
         subscribePage.open();
-
         subscribePage.getSubscribeTabComponents().getSubscribeButton().click();
-        Assert.assertFalse(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent());
+        Assert.assertFalse(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent(), "Information about the success has appeared");
     }
 
     @Test(description = "DEMO-6")
@@ -108,7 +95,7 @@ public class MagentoTests extends AbstractTest {
         subscribePage.open();
         subscribePage.getSubscribeTabComponents().typeInputValue("kow@gmail.com");
         subscribePage.getSubscribeTabComponents().getSubscribeButton().click();
-        Assert.assertTrue(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent());
+        Assert.assertTrue(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent(), "Information about the success hasn't appeared");
     }
 
     @Test(description = "DEMO-7")
@@ -120,7 +107,7 @@ public class MagentoTests extends AbstractTest {
         subscribePage.open();
         subscribePage.getSubscribeTabComponents().typeInputValue("kowal.gmail.com");
         subscribePage.getSubscribeTabComponents().getSubscribeButton().click();
-        Assert.assertFalse(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent());
+        Assert.assertFalse(subscribePage.getSubscribeTabComponents().getSuccessInfo().isElementPresent(), "Information about the success has appeared");
     }
 
     @Test(description = "DEMO-8")
@@ -131,7 +118,7 @@ public class MagentoTests extends AbstractTest {
         HomePage homePage = new HomePage(driver);
         homePage.open();
         homePage.getMenuComponents().getManButton().click();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://magento.softwaretestingboard.com/men.html");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://magento.softwaretestingboard.com/men.html", "Home page doesn't open");
     }
 
     @Test(description = "DEMO-9")
@@ -142,7 +129,7 @@ public class MagentoTests extends AbstractTest {
         ManPage manPage = new ManPage(driver);
         manPage.open();
         manPage.getManTabComponents().addToCartItemFromManPage();
-        Assert.assertTrue(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent());
+        Assert.assertTrue(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent(), "Value at cart logo doesn't changed");
     }
 
     @Test(description = "DEMO-10")
@@ -150,15 +137,12 @@ public class MagentoTests extends AbstractTest {
     public void deleteFromCartLogoTest() {
         LOGGER.info("Test 10");
         WebDriver driver = getDriver();
-        SoftAssert sa = new SoftAssert();
         ManPage manPage = new ManPage(driver);
         manPage.open();
         manPage.getManTabComponents().addToCartItemFromManPage();
-        sa.assertTrue(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent());
-
+        Assert.assertTrue(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent());
         manPage.getManTabComponents().removeFromCartFromManPage();
-        Assert.assertFalse(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent());
-        sa.assertAll();
+        Assert.assertFalse(manPage.getManTabComponents().getShowCartWithValue1().isElementPresent(), "Value at cart logo doesn't changed");
     }
 
 

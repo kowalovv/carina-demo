@@ -6,13 +6,13 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class MenuComponents  extends AbstractUIObject {
+public class MenuComponent extends AbstractUIObject {
 
-    @FindBy(xpath = ".//a[@id=\"ui-id-5\"]")
-    ExtendedWebElement manButton;
+    @FindBy(xpath = ".//a[@id='ui-id-5']")
+    private ExtendedWebElement manButton;
 
 
-    public MenuComponents(WebDriver driver, SearchContext searchContext) {
+    public MenuComponent(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 

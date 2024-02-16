@@ -6,12 +6,12 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class FooterComponents extends AbstractUIObject {
+public class FooterComponent extends AbstractUIObject {
 
-    @FindBy(xpath = ".//a[@target=\"_blank\"]")
+    @FindBy(xpath = ".//a[@target='_blank']")
     private ExtendedWebElement notes;
 
-    @FindBy(xpath = ".//a[contains(@href, \"subscribe\")]")
+    @FindBy(xpath = ".//a[contains(@href, 'subscribe')]")
     private ExtendedWebElement subscribeLinkButton;
 
     public ExtendedWebElement getSubscribeLinkButton() {
@@ -22,7 +22,7 @@ public class FooterComponents extends AbstractUIObject {
         return notes;
     }
 
-    public FooterComponents(WebDriver driver, SearchContext searchContext) {
+    public FooterComponent(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 

@@ -1,38 +1,40 @@
 package com.zebrunner.carina.demo.web;
 
-import com.zebrunner.carina.demo.web.components.FooterComponents;
+import com.zebrunner.carina.demo.web.components.FooterComponent;
 import com.zebrunner.carina.demo.web.components.Header;
-import com.zebrunner.carina.demo.web.components.MenuComponents;
+import com.zebrunner.carina.demo.web.components.MenuComponent;
 import com.zebrunner.carina.utils.config.Configuration;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.Set;
 
 public class HomePage extends AbstractPage {
 
     @FindBy(xpath = "//header")
     private Header header;
 
-    @FindBy(xpath = "//div[@class=\"footer content\"]")
-    private FooterComponents footerComponents;
+    @FindBy(xpath = "//div[@class='footer content']")
+    private FooterComponent footerComponent;
 
-    @FindBy(xpath = "//ul[@id =\"ui-id-2\"]")
-    private MenuComponents menuComponents;
+    @FindBy(xpath = "//ul[@id ='ui-id-2']")
+    private MenuComponent menuComponent;
 
-    public FooterComponents getFooterComponents() {
-        return footerComponents;
+    public HomePage(WebDriver driver) {
+        super(driver);
     }
 
-    public MenuComponents getMenuComponents() {
-        return menuComponents;
+    public FooterComponent getFooterComponents() {
+        return footerComponent;
+    }
+
+    public MenuComponent getMenuComponents() {
+        return menuComponent;
     }
 
     public Header getHeader() {
         return header;
-    }
-
-    public HomePage(WebDriver driver) {
-        super(driver);
     }
 
     @Override
@@ -40,4 +42,14 @@ public class HomePage extends AbstractPage {
         openURL(Configuration.getRequired("home_url"));
     }
 
+    public void switchTab(){
+        String homeWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
+        for (String handle : windowHandles) {
+            if (!handle.equals(homeWindowHandle)) {
+                driver.switchTo().window(handle);
+                break;
+            }
+        }
+    }
 }
